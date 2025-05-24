@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Nhận Diện Đối Tượng - YOLOv11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #eaf4ff, #f8f9ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #1a73e8;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 2px dashed #b0c4de;
+            border-radius: 14px;
+            background-color: #f9fcff;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 18px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #155ab6;
+        }
+
+        .image-results {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .image-card {
+            background: white;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .image-card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .image-card img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .status {
+            color: #2e7d32;
+            font-size: 18px;
+            margin-top: 24px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .image-results {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nhận Diện Đối Tượng - YOLOv11</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Nhận diện</button>
+        </form>
+    </div>
+
+    {% if original and result %}
+    <div class="status">✅ Hình ảnh đã được xử lý!</div>
+    <div class="image-results">
+        <div class="image-card">
+            <h2>Ảnh Gốc</h2>
+            <img src="{{ url_for('uploaded_file', filename=original) }}" alt="Ảnh gốc">
+        </div>
+        <div class="image-card">
+            <h2>Kết Quả Nhận Diện</h2>
+            <img src="{{ url_for('uploaded_file', filename=result) }}" alt="Kết quả nhận diện">
+        </div>
+    </div>
+    {% endif %}
+</body>
+</html>
